@@ -1,0 +1,67 @@
+      "SQLServer:Access Methods": {
+        "measurement":[
+          "Page Splits/sec",
+          "Forwarded Records/sec",
+          "Full scans/sec"
+        ]
+      },
+      "SQLServer:Buffer Manager": {
+        "measurement":[
+          "Page life expectancy",
+          "Page writes/sec",
+          "Page reads/sec",
+          "Buffer cache hit ratio",
+          "Checkpoint pages/sec"
+        ]
+      },
+      "SQLServer:General Statistics": {
+        "measurement":[
+          "Processes blocked",
+          {
+            "name":"User Connections",
+            "rename":"DatabaseConnections",
+            "unit":"Count"
+          }
+        ]
+      },
+      "SQLServer:Locks": {
+        "measurement":[
+          {
+            "name": "Number of Deadlocks/sec",
+            "rename": "DeadlocksPerSec",
+            "unit": "Count/Second"
+          }
+        ],
+        "resources": [
+          "_Total"
+        ]
+      },
+      "SQLServer:Memory Manager":{
+        "measurement":[
+          "Memory Grants Pending"
+        ]
+      },
+      "SQLServer:SQL Statistics": {
+        "measurement":[
+          {
+            "name":"SQL Compilations/sec",
+            "rename":"SQLCompilationsPerSec",
+            "unit":"Count/Second"
+          },
+          {
+            "name":"SQL Re-Compilations/sec",
+            "rename":"SQLReCompilationsPerSec",
+            "unit":"Count/Second"
+          },
+          {
+            "name":"Batch Requests/sec",
+            "rename":"BatchRequestsPerSec",
+            "unit":"Count/Second"
+          }
+        ]
+      },
+      "System": {
+        "measurement":[
+          "Processor Queue Length"
+        ]
+      }

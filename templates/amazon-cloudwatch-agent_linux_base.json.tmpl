@@ -1,0 +1,27 @@
+{
+  "metrics": {
+    "metrics_collected": {
+      "disk": {
+        "measurement": [
+          "used_percent"
+        ],
+        "resources": [
+          "*"
+        ],
+        "drop_device": true
+      },  
+      "mem": {
+        "measurement": [
+          "mem_used_percent"
+        ]
+      }
+    },
+    "append_dimensions": {
+      "ImageId": "$${aws:ImageId}",
+      "InstanceId": "$${aws:InstanceId}",
+      "InstanceType": "$${aws:InstanceType}",
+      "AutoScalingGroupName": "$${aws:AutoScalingGroupName}"
+    },
+    "aggregation_dimensions" : [["AutoScalingGroupName"], ["InstanceId", "InstanceType"],[]]
+  }
+}

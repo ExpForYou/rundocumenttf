@@ -1,0 +1,103 @@
+{
+  "logs": {
+    "logs_collected": {
+      "files": {
+        "collect_list": [
+          ${windows_logs}
+          {
+            "log_group_name": "EC2Launch/UserdataExecution",
+            "log_stream_name": "{instance_id}",
+            "file_path": "$$Env:ProgramData\\Amazon\\EC2-Windows\\Launch\\Log\\UserdataExecution.log",
+            "timestamp_format": "%Y-%m-%dT%H:%M:%S.%f"
+          },
+          {
+            "log_group_name": "amazon-cloudwatch-agent.log",
+            "log_stream_name": "{instance_id}",
+            "file_path": "$$Env:ProgramData\\Amazon\\AmazonCloudWatchAgent\\Logs\\amazon-cloudwatch-agent.log",
+            "timezone": "UTC",
+            "timestamp_format": "%Y-%m-%d %H:%M:%S",
+            "encoding": "utf-8"
+          }
+        ]
+      },
+      "windows_events": {
+        "collect_list": [
+          {
+            "event_format": "xml",
+            "event_levels": [
+              "WARNING",
+              "ERROR",
+              "CRITICAL"
+            ],
+            "event_name": "System",
+            "log_group_name": "System",
+            "log_stream_name": "{instance_id}"
+          },
+          {
+            "event_format": "xml",
+            "event_levels": [
+              "WARNING",
+              "ERROR",
+              "CRITICAL"
+            ],
+            "event_name": "Application",
+            "log_group_name": "Application",
+            "log_stream_name": "{instance_id}"
+          },
+          {
+            "event_format": "xml",
+            "event_levels": [
+              "WARNING",
+              "ERROR",
+              "CRITICAL"
+            ],
+            "event_name": "Security",
+            "log_group_name": "Security",
+            "log_stream_name": "{instance_id}"
+          },
+          {
+            "event_format": "xml",
+            "event_levels": [
+              "WARNING",
+              "ERROR",
+              "CRITICAL"
+            ],
+            "event_name": "Microsoft-Windows-PowerShell/Operational",
+            "log_group_name": "Powershell",
+            "log_stream_name": "{instance_id}"
+          }
+        ]
+      }
+    }
+  },
+  "metrics": {
+    "namespace": "WindowsPerfMon",
+    "append_dimensions": {
+      "AutoScalingGroupName": "$${aws:AutoScalingGroupName}",
+      "ImageId": "$${aws:ImageId}",
+      "InstanceId": "$${aws:InstanceId}",
+      "InstanceType": "$${aws:InstanceType}"
+    },
+    "aggregation_dimensions": [["InstanceId"], ["Instance Name"]],
+    "metrics_collected": {
+      ${perfmon_metrics}
+      "LogicalDisk": {
+        "measurement": [
+          {"name": "Free Megabytes", "rename": "LogicalDisk Free MB", "unit": "Megabytes"},
+          {"name": "% Free Space", "rename": "LogicalDisk % Free", "unit": "Percent"}
+        ],
+        "metrics_collection_interval": 60,
+        "resources": [
+          "*"
+        ]
+      },
+      "Memory": {
+        "measurement": [
+          {"name": "Available MBytes", "rename": "RAM Free MB", "unit": "Megabytes"},
+          {"name": "% Committed Bytes In Use", "rename": "RAM % Used", "unit": "Percent"}
+        ],
+        "metrics_collection_interval": 60
+      }
+    }
+  }
+}
